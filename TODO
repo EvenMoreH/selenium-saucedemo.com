@@ -1,0 +1,21 @@
+TESTS:
+[-] test_login.py
+    [-] test_invalid_login
+
+[-] test_products_page.py
+    [-] filtering
+    [-] adding to cart
+    [-] removing from cart (products page)
+
+[-] test_checkout_flow.py
+    [-] full flow
+    [-] adding to cart
+    [-] removing from cart (cart page)
+    [-] returning to products list
+
+PAGES:
+[-] products_page.py
+[-] cart_page.py
+[-] checkout_information_page.py
+[-] checkout_overview_page.py
+[-] checkout_complete_page.py
