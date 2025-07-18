@@ -3,8 +3,23 @@ import os
 
 load_dotenv()
 
-TEST_USER = os.getenv("TEST_USER")
-TEST_PASS = os.getenv("TEST_PASS")
+class TestUsers:
+    standard = {
+        "username": os.getenv("TEST_STANDARD_USER"),
+        "password": os.getenv("TEST_STANDARD_PASS"),
+    }
+    incorrect = {
+        "username": os.getenv("TEST_INCORRECT_USER"),
+        "password": os.getenv("TEST_INCORRECT_PASS"),
+    }
+    locked = {
+        "username": os.getenv("TEST_LOCKED_USER"),
+        "password": os.getenv("TEST_LOCKED_PASS"),
+    }
+    problem = {
+        "username": os.getenv("TEST_PROBLEM_USER"),
+        "password": os.getenv("TEST_PROBLEM_PASS"),
+    }
 
 BASE_URL = "https://www.saucedemo.com/"
 DEFAULT_TIMEOUT = 10
