@@ -1,8 +1,11 @@
 TESTS:
-[-] test_login.py
-    [-] test_invalid_login
+[x] test_login.py
+    [x] test_invalid_login
+    [x] test_locked_out_login
 
-[-] test_products_page.py
+[x] test_products_page.py
+    [x] opening cart
+        [-] opening cart as various user roles/types
     [-] filtering
     [-] adding to cart
     [-] removing from cart (products page)
