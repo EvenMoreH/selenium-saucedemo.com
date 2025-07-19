@@ -9,9 +9,13 @@ def default_user_logged(driver):
     login_page.login(**TestUsers.standard)
     return driver
 
-@pytest.fixture(params=[TestUsers.standard, TestUsers.problem])
+@pytest.fixture(params=[
+    ("standard_user", TestUsers.standard),
+    ("problem_user", TestUsers.problem),
+    ])
 def var_user_logged(driver, request):
     login_page = LoginPage(driver)
-    user_credentials = request.param
+    # unpacking tuple in correct order
+    current_user, user_credentials = request.param
     login_page.login(**user_credentials)
-    return driver
+    return current_user, driver
