@@ -5,7 +5,7 @@ TESTS:
 
 [x] test_products_page.py
     [x] opening cart
-        [-] opening cart as various user roles/types
+        [-] opening cart as various user roles/types (using parametrization)
     [-] filtering
     [-] adding to cart
     [-] removing from cart (products page)

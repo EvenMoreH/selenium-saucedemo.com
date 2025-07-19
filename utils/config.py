@@ -1,6 +1,9 @@
 from dotenv import load_dotenv
 import os
 
+BASE_URL = "https://www.saucedemo.com/"
+DEFAULT_TIMEOUT = 10
+
 load_dotenv()
 
 class TestUsers:
@@ -20,6 +23,3 @@ class TestUsers:
         "username": os.getenv("TEST_PROBLEM_USER"),
         "password": os.getenv("TEST_PROBLEM_PASS"),
     }
-
-BASE_URL = "https://www.saucedemo.com/"
-DEFAULT_TIMEOUT = 10
