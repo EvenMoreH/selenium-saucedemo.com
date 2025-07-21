@@ -9,7 +9,7 @@ TESTS:
     [-] filtering
     [x] adding to cart for various users
     [x] removing from cart (products page)
-    [-] cart badge updating
+    [x] cart badge updating
 
 [-] test_checkout_flow.py
     [-] full flow

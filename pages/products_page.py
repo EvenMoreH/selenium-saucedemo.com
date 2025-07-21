@@ -12,6 +12,14 @@ class ProductsPage:
     def open_cart(self):
         self.driver.find_element(*self.shopping_cart).click()
 
+    def cart_badge_count(self):
+        try:
+            # needs to be dynamic to fetch fresh DOM each increment
+            badge = self.driver.find_element(By.CLASS_NAME, "shopping_cart_badge")
+            return int(badge.text)
+        except NoSuchElementException:
+            return 0
+
     def add_to_cart(self, product_id: str):
         try:
             # dynamic locator defined in method to not repeat it in __innit__
