@@ -8,7 +8,8 @@ TESTS:
         [x] opening cart as various user roles/types (using parametrization)
     [-] filtering
     [x] adding to cart for various users
-    [-] removing from cart (products page)
+    [x] removing from cart (products page)
+    [-] cart badge updating
 
 [-] test_checkout_flow.py
     [-] full flow

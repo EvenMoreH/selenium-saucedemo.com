@@ -2,6 +2,8 @@ import pytest
 from utils.browser_setup import driver
 from pages.products_page import ProductsPage
 
+import time
+
 @pytest.mark.smoke
 def test_open_cart_default(default_user_logged):
     products_page = ProductsPage(default_user_logged)
@@ -35,3 +37,22 @@ def test_add_to_cart(var_user_logged, product_id):
     if not products_page.is_in_cart(product_id):
         pytest.fail(f"Expected {product_id} to be in cart, but {current_user} could not add it.")
     # assert products_page.is_in_cart(product_id), f"Expected {product_id} to be in cart, but {current_user} could not add it."
+
+@pytest.mark.cart
+@pytest.mark.parametrize("product_id", [
+    "sauce-labs-backpack",
+    "sauce-labs-bike-light",
+    "sauce-labs-bolt-t-shirt",
+    "sauce-labs-fleece-jacket",
+    "sauce-labs-onesie",
+    "test.allthethings()-t-shirt-(red)"
+    ])
+def test_remove_from_cart(var_user_logged, product_id):
+    current_user, driver = var_user_logged
+    products_page = ProductsPage(driver)
+    products_page.add_to_cart(product_id)
+    products_page.remove_from_cart(product_id)
+    assert products_page.is_add_to_cart_button_visible(product_id), (
+        f"Expected 'Add to cart' button to be visible for product {product_id} after removal. "
+        f"{current_user} could not remove the product."
+    )
