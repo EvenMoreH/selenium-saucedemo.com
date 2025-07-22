@@ -46,7 +46,7 @@ def test_remove_from_cart(var_user_logged, product_id):
         f"{current_user} could not remove the product."
     )
 
-@pytest.mark.cart3
+@pytest.mark.cart
 def test_cart_badge_increments(var_user_logged):
     current_user, driver = var_user_logged
     products_page = ProductsPage(driver)
@@ -71,3 +71,31 @@ def test_cart_badge_increments(var_user_logged):
             f"Expected cart badge to show {expected_count}, after adding {product_index} products to cart, "
             f"but got {products_page.cart_badge_count()}. Failed at product: {product_id} for user: {current_user}."
         )
+
+@pytest.mark.filter
+def test_sort_za(default_user_logged):
+    driver = default_user_logged
+    products_page = ProductsPage(driver)
+    products_page.sort_za()
+    # TODO: Assertion that validates sorting
+
+@pytest.mark.filter
+def test_sort_az(default_user_logged):
+    driver = default_user_logged
+    products_page = ProductsPage(driver)
+    products_page.sort_az()
+    # TODO: Assertion that validates sorting
+
+@pytest.mark.filter
+def test_sort_high_low(default_user_logged):
+    driver = default_user_logged
+    products_page = ProductsPage(driver)
+    products_page.sort_high_low()
+    # TODO: Assertion that validates sorting
+
+@pytest.mark.filter
+def test_sort_low_high(default_user_logged):
+    driver = default_user_logged
+    products_page = ProductsPage(driver)
+    products_page.sort_low_high()
+    # TODO: Assertion that validates sorting

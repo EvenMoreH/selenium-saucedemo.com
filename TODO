@@ -7,6 +7,8 @@ TESTS:
     [x] opening cart
         [x] opening cart as various user roles/types (using parametrization)
     [-] filtering
+        [-] build assertion model that extracts products name/price and checks if sorted correctly
+        [-] expand filtering to various user types (now only standard_user is set up)
     [x] adding to cart for various users
     [x] removing from cart (products page)
     [x] cart badge updating

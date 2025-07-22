@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
 from selenium.webdriver.remote.webdriver import WebDriver   # import to have intellisense inside methods
 from selenium.common.exceptions import NoSuchElementException
 
@@ -6,8 +7,7 @@ class ProductsPage:
     def __init__(self, driver: WebDriver):
         self.driver = driver
         self.shopping_cart = (By.CLASS_NAME, "shopping_cart_link")
-
-        # self.sort_funnel = (By.CLASS_NAME, "product_sort_container")
+        self.sort_funnel = (By.CLASS_NAME, "product_sort_container")
 
     def open_cart(self):
         self.driver.find_element(*self.shopping_cart).click()
@@ -50,3 +50,23 @@ class ProductsPage:
             return self.driver.find_element(*add_to_cart_button).is_displayed()
         except NoSuchElementException:
             return False
+
+    # helper method to open filter menu
+    def _open_filter(self):
+        return self.driver.find_element(*self.sort_funnel)
+
+    def sort_za(self):
+        select = Select(self._open_filter())
+        select.select_by_value("za")
+
+    def sort_az(self):
+        select = Select(self._open_filter())
+        select.select_by_value("az")
+
+    def sort_high_low(self):
+        select = Select(self._open_filter())
+        select.select_by_value("hilo")
+
+    def sort_low_high(self):
+        select = Select(self._open_filter())
+        select.select_by_value("lohi")
