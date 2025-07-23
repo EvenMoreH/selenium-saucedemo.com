@@ -73,29 +73,53 @@ def test_cart_badge_increments(var_user_logged):
         )
 
 @pytest.mark.filter
-def test_sort_za(default_user_logged):
-    driver = default_user_logged
+def test_sort_za(var_user_logged):
+    current_user, driver = var_user_logged
     products_page = ProductsPage(driver)
     products_page.sort_za()
-    # TODO: Assertion that validates sorting
+
+    current_products_order = products_page.capture_all_products()
+    expected_products_order = sorted(PRODUCT_IDS, reverse=True)
+
+    assert current_products_order == expected_products_order, (
+        f"After AZ sort, expected list of products: {expected_products_order}. "
+        f"{current_user} got: {current_products_order}. "
+    )
 
 @pytest.mark.filter
-def test_sort_az(default_user_logged):
-    driver = default_user_logged
+def test_sort_az(var_user_logged):
+    current_user, driver = var_user_logged
     products_page = ProductsPage(driver)
+    # Step 1: Force Z-A sort
+    products_page.sort_za()
+    current_za_order = products_page.capture_all_products()
+
+    assert current_za_order == sorted(PRODUCT_IDS, reverse=True), (
+        f"Step 1: Sort items Z-A failed for {current_user}. "
+        "Test interrupted. "
+    )
+
+    # Step 2: Test A-Z sort
     products_page.sort_az()
-    # TODO: Assertion that validates sorting
+
+    current_az_order = products_page.capture_all_products()
+    expected_products_order = sorted(PRODUCT_IDS)
+
+    assert current_az_order == expected_products_order, (
+        f"After AZ sort, expected list of products: {expected_products_order}. "
+        f"{current_user} got: {current_az_order}. "
+    )
 
 @pytest.mark.filter
-def test_sort_high_low(default_user_logged):
-    driver = default_user_logged
+def test_sort_high_low(var_user_logged):
+    current_user, driver = var_user_logged
     products_page = ProductsPage(driver)
     products_page.sort_high_low()
     # TODO: Assertion that validates sorting
 
 @pytest.mark.filter
-def test_sort_low_high(default_user_logged):
-    driver = default_user_logged
+def test_sort_low_high(var_user_logged):
+    current_user, driver = var_user_logged
     products_page = ProductsPage(driver)
     products_page.sort_low_high()
     # TODO: Assertion that validates sorting

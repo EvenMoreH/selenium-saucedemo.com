@@ -70,3 +70,11 @@ class ProductsPage:
     def sort_low_high(self):
         select = Select(self._open_filter())
         select.select_by_value("lohi")
+
+    def capture_all_products(self):
+        products_order = self.driver.find_elements(By.CLASS_NAME, "inventory_item_name")
+        current_products_order = []
+        for product in products_order:
+            current_products_order.append(product.text.lower().replace(" ", "-"))
+        print(current_products_order)
+        return current_products_order
