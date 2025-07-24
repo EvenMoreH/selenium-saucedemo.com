@@ -78,7 +78,7 @@ def test_sort_za(var_user_logged):
     products_page = ProductsPage(driver)
     products_page.sort_za()
 
-    current_products_order = products_page.capture_all_products()
+    current_products_order = products_page.capture_all_products_name()
     expected_products_order = sorted(PRODUCT_IDS, reverse=True)
 
     assert current_products_order == expected_products_order, (
@@ -92,7 +92,7 @@ def test_sort_az(var_user_logged):
     products_page = ProductsPage(driver)
     # Step 1: Force Z-A sort
     products_page.sort_za()
-    current_za_order = products_page.capture_all_products()
+    current_za_order = products_page.capture_all_products_name()
 
     assert current_za_order == sorted(PRODUCT_IDS, reverse=True), (
         f"Step 1: Sort items Z-A failed for {current_user}. "
@@ -102,7 +102,7 @@ def test_sort_az(var_user_logged):
     # Step 2: Test A-Z sort
     products_page.sort_az()
 
-    current_az_order = products_page.capture_all_products()
+    current_az_order = products_page.capture_all_products_name()
     expected_products_order = sorted(PRODUCT_IDS)
 
     assert current_az_order == expected_products_order, (
@@ -114,12 +114,30 @@ def test_sort_az(var_user_logged):
 def test_sort_high_low(var_user_logged):
     current_user, driver = var_user_logged
     products_page = ProductsPage(driver)
+
+    expected_product_order = products_page.capture_all_products_price()
+    expected_product_order = sorted(expected_product_order, reverse=True)
+
     products_page.sort_high_low()
-    # TODO: Assertion that validates sorting
+    current_product_order = products_page.capture_all_products_price()
+
+    assert current_product_order == expected_product_order, (
+        f"After high to low price sort, expected list of products: {expected_product_order}. "
+        f"{current_user} got: {current_product_order}. "
+    )
 
 @pytest.mark.filter
 def test_sort_low_high(var_user_logged):
     current_user, driver = var_user_logged
     products_page = ProductsPage(driver)
+
+    expected_product_order = products_page.capture_all_products_price()
+    expected_product_order = sorted(expected_product_order)
+
     products_page.sort_low_high()
-    # TODO: Assertion that validates sorting
+    current_products_order = products_page.capture_all_products_price()
+
+    assert current_products_order == expected_product_order, (
+        f"After low to high price sort, expected list of products: {expected_product_order}. "
+        f"{current_user} got: {current_products_order}. "
+    )

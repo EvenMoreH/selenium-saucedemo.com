@@ -71,10 +71,20 @@ class ProductsPage:
         select = Select(self._open_filter())
         select.select_by_value("lohi")
 
-    def capture_all_products(self):
+    def capture_all_products_name(self):
         products_order = self.driver.find_elements(By.CLASS_NAME, "inventory_item_name")
         current_products_order = []
         for product in products_order:
             current_products_order.append(product.text.lower().replace(" ", "-"))
+        print(current_products_order)
+        return current_products_order
+
+    def capture_all_products_price(self):
+        products_order = self.driver.find_elements(By.CLASS_NAME, "inventory_item_price")
+        current_products_order = []
+        for product in products_order:
+            product = float(product.text.replace("$", ""))
+            current_products_order.append(product)
+
         print(current_products_order)
         return current_products_order
