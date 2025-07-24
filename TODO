@@ -21,6 +21,12 @@ TESTS:
     [-] removing from cart (cart page)
     [-] returning to products list
 
+[-] cart_page.py
+    [-] build fixture to access cart directly
+    [-] removing from cart
+    [-] checkout button
+    [-] going back to products page
+
 PAGES:
 [x] products_page.py
 [-] cart_page.py
