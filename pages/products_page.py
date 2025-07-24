@@ -8,6 +8,8 @@ class ProductsPage:
         self.driver = driver
         self.shopping_cart = (By.CLASS_NAME, "shopping_cart_link")
         self.sort_funnel = (By.CLASS_NAME, "product_sort_container")
+        # keep it resilient if change to 'Visit our LinkedIn' would be made
+        self.linkedin_link = (By.PARTIAL_LINK_TEXT, "LinkedIn")
 
     def open_cart(self):
         self.driver.find_element(*self.shopping_cart).click()
@@ -88,3 +90,6 @@ class ProductsPage:
 
         print(current_products_order)
         return current_products_order
+
+    def visit_linkedin(self):
+        self.driver.find_element(*self.linkedin_link).click()

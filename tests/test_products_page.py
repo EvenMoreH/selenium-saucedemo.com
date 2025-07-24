@@ -2,6 +2,7 @@ import pytest
 from utils.browser_setup import driver
 from pages.products_page import ProductsPage
 from utils.product_data import PRODUCT_IDS
+from utils.config import SOCIAL_MEDIA
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
@@ -140,4 +141,20 @@ def test_sort_low_high(var_user_logged):
     assert current_products_order == expected_product_order, (
         f"After low to high price sort, expected list of products: {expected_product_order}. "
         f"{current_user} got: {current_products_order}. "
+    )
+
+@pytest.mark.social
+def test_social_media_link(var_user_logged):
+    current_user, driver = var_user_logged
+    products_page = ProductsPage(driver)
+
+    products_page.visit_linkedin()
+
+    WebDriverWait(driver, 5).until(
+        lambda d: len(d.window_handles) > 1
+    )
+    driver.switch_to.window(driver.window_handles[1])
+
+    assert driver.current_url == SOCIAL_MEDIA, (
+        f"Expected arrival at url: {SOCIAL_MEDIA}, {current_user} redirected to: {driver.current_url}. "
     )

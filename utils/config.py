@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 import os
 
 BASE_URL = "https://www.saucedemo.com/"
+SOCIAL_MEDIA = "https://www.linkedin.com/company/sauce-labs/"
 DEFAULT_TIMEOUT = 10
 
 load_dotenv()

@@ -6,13 +6,14 @@ TESTS:
 [x] test_products_page.py
     [x] opening cart
         [x] opening cart as various user roles/types (using parametrization)
-    [-] filtering
+    [x] filtering
         [x] expand filtering to various user types
         [x] build assertion model that extracts products name and checks if sorted correctly
-        [-] build assertion model that extracts products price and checks if sorted correctly
+        [x] build assertion model that extracts products price and checks if sorted correctly
     [x] adding to cart for various users
     [x] removing from cart (products page)
     [x] cart badge updating
+    [x] social media (LinkedIn) redirection
 
 [-] test_checkout_flow.py
     [-] full flow
@@ -21,7 +22,7 @@ TESTS:
     [-] returning to products list
 
 PAGES:
-[-] products_page.py
+[x] products_page.py
 [-] cart_page.py
 [-] checkout_information_page.py
 [-] checkout_overview_page.py
