@@ -25,6 +25,5 @@ def var_user_logged(driver, request):
 def open_cart_page(var_user_logged):
     current_user, driver = var_user_logged
     products_page = ProductsPage(driver)
-    cart_page = products_page.open_cart()
-    return current_user, cart_page
-    # TODO: FIX!
+    products_page.open_cart()
+    return current_user, driver

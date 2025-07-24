@@ -4,7 +4,6 @@ from pages.products_page import ProductsPage
 from utils.product_data import PRODUCT_IDS
 from utils.config import SOCIAL_MEDIA
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
 
@@ -156,5 +155,5 @@ def test_social_media_link(var_user_logged):
     driver.switch_to.window(driver.window_handles[1])
 
     assert driver.current_url == SOCIAL_MEDIA, (
-        f"Expected arrival at url: {SOCIAL_MEDIA}, {current_user} redirected to: {driver.current_url}. "
+        f"Expected arrival at url: {SOCIAL_MEDIA}, {current_user} actually redirected to: {driver.current_url}. "
     )
