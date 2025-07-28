@@ -4,7 +4,7 @@ from utils.browser_setup import driver
 from pages.cart_page import Cart
 
 
-@pytest.mark.btn1
+@pytest.mark.cart
 def test_continue_shopping_button(open_cart_page):
     current_user, driver = open_cart_page
     cart_page = Cart(driver)
@@ -19,3 +19,7 @@ def test_continue_shopping_button(open_cart_page):
         f"Expected redirection to: {new_products_page_url}. "
         f"{current_user} actually redirected to {driver.current_url}. "
     )
+
+@pytest.mark.cart
+def test_remove_from_cart_on_cart_page():
+    pass

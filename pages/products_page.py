@@ -41,8 +41,8 @@ class ProductsPage:
 
     def remove_from_cart(self, product_id: str):
         try:
-            remover_from_cart_button = (By.ID, f"remove-{product_id}")
-            self.driver.find_element(*remover_from_cart_button).click()
+            remove_from_cart_button = (By.ID, f"remove-{product_id}")
+            self.driver.find_element(*remove_from_cart_button).click()
         except NoSuchElementException:
             return False
 

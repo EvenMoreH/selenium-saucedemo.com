@@ -14,6 +14,10 @@ TESTS:
     [x] removing from cart (products page)
     [x] cart badge updating
     [x] social media (LinkedIn) redirection
+    [-] product preview
+        [-] add to cart from preview
+        [-] remove from cart from preview
+        [-] back to products page from preview
 
 [-] test_checkout_flow.py
     [-] full flow
