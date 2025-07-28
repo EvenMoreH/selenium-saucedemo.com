@@ -25,11 +25,11 @@ TESTS:
     [-] removing from cart (cart page)
     [-] returning to products list
 
-[-] cart_page.py
-    [x] build fixture to access cart directly
-    [-] removing from cart
-    [-] checkout button
+[-] test_cart.py
+    [x] removing from cart - single products
+    [x] removing from cart - multiple products
     [x] going back to products page
+    [-] checkout button
 
 PAGES:
 [x] products_page.py
@@ -37,3 +37,8 @@ PAGES:
 [-] checkout_information_page.py
 [-] checkout_overview_page.py
 [-] checkout_complete_page.py
+
+[-] cart_page.py
+    [x] build fixture to access cart directly
+    [x] checkout button
+    [x] going back to products page

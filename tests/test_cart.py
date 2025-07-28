@@ -33,15 +33,40 @@ def test_remove_from_cart_on_cart_page(var_user_logged, product_id):
     products_page.add_to_cart(product_id)
     products_page.open_cart()
 
-    # Step 2: Check if items were added
+    # Step 2: Check if item was added
     assert cart_page.is_in_cart(product_id), (
         f"Expected {product_id} to be in cart, but {current_user} could not add it. "
     )
 
-    # Step 3: Remove items
+    # Step 3: Remove item
     cart_page.remove_from_cart(product_id)
 
-    # Step 4: Check if items were removed correctly
+    # Step 4: Check if item was removed correctly
     assert not cart_page.is_in_cart(product_id), (
         f"Expected {product_id} to be removed from cart but it is still present. "
         )
+
+@pytest.mark.cart
+def test_add_and_remove_multiple_items(var_user_logged):
+    current_user, driver = var_user_logged
+    products_page = ProductsPage(driver)
+    cart_page = Cart(driver)
+
+    # Step 1: Add all products
+    for product_id in PRODUCT_IDS:
+        products_page.add_to_cart(product_id)
+
+    # Step 2: Go to cart page
+    products_page.open_cart()
+
+    # Step 3: Confirm all products are in cart
+    for product_id in PRODUCT_IDS:
+        assert cart_page.is_in_cart(product_id), f"{product_id} missing from cart for {current_user}. "
+
+    # Step 4: Remove all products from cart
+    for product_id in PRODUCT_IDS:
+        cart_page.remove_from_cart(product_id)
+
+    # Step 5: Confirm cart is empty
+    for product_id in PRODUCT_IDS:
+        assert not cart_page.is_in_cart(product_id), f"{product_id} was not removed for {current_user}. "
