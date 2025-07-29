@@ -42,3 +42,7 @@ PAGES:
     [x] build fixture to access cart directly
     [x] checkout button
     [x] going back to products page
+
+MISC:
+[-] refactor POM to use locators outside of __innit__ for better readability taking into account volume of tests.
+[-] expand tests and POM with docstring to achieve level of documentation for the future
