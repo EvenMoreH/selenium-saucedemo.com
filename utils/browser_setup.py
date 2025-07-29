@@ -5,6 +5,10 @@ from utils.config import BASE_URL
 
 @pytest.fixture(scope="function")
 def driver():
+    """
+    Chrome WebDriver fixture with headless configuration.
+    Automatically navigates to BASE_URL and cleans up after tests.
+    """
     # set options
     options = Options()
     options.add_argument("--disable-infobars")
