@@ -17,7 +17,7 @@ class ProductsPage:
     SORT_FUNNEL_BTN = (By.CLASS_NAME, "product_sort_container")
     PRODUCT_NAME_ELEMENTS = (By.CLASS_NAME, "inventory_item_name")
     PRODUCT_PRICE_ELEMENTS = (By.CLASS_NAME, "inventory_item_price")
-    # keep it resilient if change to 'Visit our LinkedIn' would be made
+    # keep it resilient that is why partial link text if change to 'Visit our LinkedIn' would be made
     LINKEDIN_LINK = (By.PARTIAL_LINK_TEXT, "LinkedIn")
 
     def __init__(self, driver: WebDriver):
@@ -187,3 +187,6 @@ class ProductsPage:
         Clicks on the LinkedIn link to navigate to the company's LinkedIn page.
         """
         self.driver.find_element(*self.LINKEDIN_LINK).click()
+
+    def open_product_details(self):
+        pass

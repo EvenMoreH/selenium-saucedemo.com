@@ -14,10 +14,7 @@ TESTS:
     [x] removing from cart (products page)
     [x] cart badge updating
     [x] social media (LinkedIn) redirection
-    [-] product preview
-        [-] add to cart from preview
-        [-] remove from cart from preview
-        [-] back to products page from preview
+    [-] access product details
 
 [-] test_checkout_flow.py
     [-] full flow
@@ -34,6 +31,7 @@ TESTS:
 PAGES:
 [x] products_page.py
 [-] cart_page.py
+[-] product_details_page.py
 [-] checkout_information_page.py
 [-] checkout_overview_page.py
 [-] checkout_complete_page.py
@@ -43,6 +41,13 @@ PAGES:
     [x] checkout button
     [x] going back to products page
 
+[-] product_details_page.py
+    [-] add to cart from preview
+    [-] remove from cart from preview
+    [-] back to products page from preview
+    [-] check if price match products page
+
 MISC:
 [x] refactor POM to use locators outside of __innit__ for better readability taking into account volume of tests.
 [x] expand tests and POM with docstring to achieve some level of documentation for the future
+[x] test result logging configuration
