@@ -4,6 +4,7 @@ from pages.login_page import LoginPage
 from pages.products_page import ProductsPage
 from utils.config import TestUsers
 import logging
+import re
 
 
 def pytest_configure(config):
@@ -18,11 +19,32 @@ def pytest_configure(config):
         format='%(asctime)s - %(levelname)s - %(message)s'
     )
 
+def remove_ansi(text):
+    """
+    Removes ANSI escape sequences from the given text using re module.
+
+    Parameters:
+    text : str
+        The input string that may contain ANSI escape sequences.
+
+    Returns : str
+        The input string with all ANSI escape sequences removed.
+
+    Notes:
+    ------
+    ANSI escape sequences are used to add color and formatting to terminal output.
+    Not needed in 'test_results.log' file.
+    """
+    ansi_escape = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
+    return ansi_escape.sub('', text)
+
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     """
-    Pytest built-in hook that runs after each test function.
-    Used here to log whether the test passed, failed, or was skipped.
+    Hook to log the outcome of each test case (pass, fail, or skip) during test execution.
+
+    Logs the test name and, in case of failure, also logs the exception type and message
+    (e.g., AssertionError, Selenium exceptions), with ANSI color codes removed for readability.
     """
     # execute all other hooks to obtain the report object
     outcome = yield
@@ -33,6 +55,10 @@ def pytest_runtest_makereport(item, call):
             logging.info(f"TEST PASSED: {item.name}")
         elif report.failed:
             logging.error(f"TEST FAILED: {item.name}")
+            if call.excinfo:
+                exc_type = call.excinfo.type.__name__
+                exc_msg = str(call.excinfo.value)
+                logging.error(remove_ansi(f"{exc_type}: {exc_msg}"))
         elif report.skipped:
             logging.warning(f"TEST SKIPPED: {item.name}")
 

@@ -188,5 +188,17 @@ class ProductsPage:
         """
         self.driver.find_element(*self.LINKEDIN_LINK).click()
 
-    def open_product_details(self):
-        pass
+    def open_product_details(self, product_id):
+        """
+        Clicks on the product with the given ID.
+
+        Args:
+            product_id (str): The product ID to be opened.
+        """
+        products = self.driver.find_elements(*self.PRODUCT_NAME_ELEMENTS)
+
+        for product in products:
+            normalized_name = product.text.lower().replace(" ", "-")
+            if normalized_name == product_id:
+                product.click()
+                return

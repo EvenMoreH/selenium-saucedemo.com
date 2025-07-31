@@ -1,6 +1,7 @@
 import pytest
 from utils.browser_setup import driver
 from pages.products_page import ProductsPage
+from pages.product_details_page import ProductDetails
 from utils.product_data import PRODUCT_IDS
 from utils.config import BASE_URL
 from utils.config import SOCIAL_MEDIA
@@ -300,4 +301,25 @@ def test_social_media_link(var_user_logged):
 
     assert driver.current_url == SOCIAL_MEDIA, (
         f"Expected arrival at url: {SOCIAL_MEDIA}, {current_user} actually redirected to: {driver.current_url}. "
+    )
+
+@pytest.mark.details
+@pytest.mark.parametrize("product_id", PRODUCT_IDS)
+def test_open_product_details(var_user_logged, product_id):
+    """
+    Test opening a product details page and verifying the displayed product name.
+
+    Args:
+        var_user_logged (tuple): A tuple containing the current user and the WebDriver instance.
+        product_id (str): The ID of the product to be opened.
+    """
+    current_user, driver = var_user_logged
+    products_page = ProductsPage(driver)
+    product_details_page = ProductDetails(driver)
+
+    products_page.open_product_details(product_id)
+
+    assert product_details_page.capture_product_name() == product_id, (
+        f"Expected product details for: {product_id}. "
+        f"{current_user} sees: {product_details_page.capture_product_name()}. "
     )
