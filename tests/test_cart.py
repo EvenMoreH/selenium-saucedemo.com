@@ -118,3 +118,24 @@ def test_add_and_remove_multiple_items(var_user_logged):
     # Step 5: Confirm cart is empty
     for product_id in PRODUCT_IDS:
         assert not cart_page.is_in_cart(product_id), f"{product_id} was not removed for {current_user}. "
+
+@pytest.mark.cart
+def test_checkout_btn(var_user_logged):
+    """
+    Tests redirection to the checkout page when clicking the checkout button.
+
+    Args:
+        var_user_logged: A tuple containing the current user and WebDriver instance.
+    """
+    current_user, driver = var_user_logged
+    products_page = ProductsPage(driver)
+    cart_page = Cart(driver)
+
+    products_page.open_cart()
+    cart_page.click_checkout_btn()
+    expected_url = f"{BASE_URL}checkout-step-one.html"
+
+    assert driver.current_url == expected_url, (
+        f"Expected {current_user} to be redirected to: {expected_url} ."
+        f"{current_user} actually redirected to {driver.current_url}."
+    )

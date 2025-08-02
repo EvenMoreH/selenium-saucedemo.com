@@ -61,3 +61,9 @@ class Cart:
             self.driver.find_element(*self._remove_from_cart_locator(product_id)).click()
         except NoSuchElementException:
             return False
+
+    def click_checkout_btn(self):
+        """
+        Clicks on the checkout button.
+        """
+        self.driver.find_element(*self.CHECKOUT_BTN).click()

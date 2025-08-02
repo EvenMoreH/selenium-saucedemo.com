@@ -162,8 +162,8 @@ class ProductsPage:
         """
         products_order = self.driver.find_elements(*self.PRODUCT_NAME_ELEMENTS)
         current_products_order = []
-        for product in products_order:
-            current_products_order.append(product.text.lower().replace(" ", "-"))
+        current_products_order = [product.text.lower().replace(" ", "-") for product in products_order]
+
         print(current_products_order)
         return current_products_order
 
@@ -175,9 +175,7 @@ class ProductsPage:
         """
         products_order = self.driver.find_elements(*self.PRODUCT_PRICE_ELEMENTS)
         current_products_order = []
-        for product in products_order:
-            product = float(product.text.replace("$", ""))
-            current_products_order.append(product)
+        current_products_order = [float(product.text.replace("$", "")) for product in products_order]
 
         print(current_products_order)
         return current_products_order
