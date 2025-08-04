@@ -2,6 +2,9 @@ TESTS:
 [x] test_login.py
     [x] test_invalid_login
     [x] test_locked_out_login
+    [x] test login with missing data
+    [x] test login with whitespaces
+    [x] test login case sensitivity
 
 [x] test_products_page.py
     [x] opening cart
