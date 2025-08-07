@@ -18,6 +18,7 @@ TESTS:
     [x] cart badge updating
     [x] social media (LinkedIn) redirection
     [x] access product details and check if correct product opens up
+    [x] check if product has correct price
 
 [-] test_checkout_flow.py
     [-] full flow
@@ -49,6 +50,7 @@ PAGES:
     [-] remove from cart from preview
     [-] back to products page from preview
     [-] check if price match products page
+    [-] check if correct picture for a product is visible
 
 FLOWS:
 [-] test_purchase_flow - (e2e test)

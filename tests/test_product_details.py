@@ -35,3 +35,15 @@ def test_add_to_cart(var_user_logged, product_id):
         f"Expected {current_user} to have {product_id} in cart. "
         f"{current_user} was not able to add {product_id} to cart."
     )
+
+def test_remove_from_cart():
+    pass
+
+
+def test_check_item_price():
+    pass
+
+
+def test_check_product_img():
+    pass
+

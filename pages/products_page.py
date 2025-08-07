@@ -15,6 +15,7 @@ class ProductsPage:
     SHOPPING_CART_BTN = (By.CLASS_NAME, "shopping_cart_link")
     SHOPPING_CART_BADGE = (By.CLASS_NAME, "shopping_cart_badge")
     SORT_FUNNEL_BTN = (By.CLASS_NAME, "product_sort_container")
+    PRODUCT_ITEM = (By.CLASS_NAME, "inventory_item")
     PRODUCT_NAME_ELEMENTS = (By.CLASS_NAME, "inventory_item_name")
     PRODUCT_PRICE_ELEMENTS = (By.CLASS_NAME, "inventory_item_price")
     # keep it resilient that is why partial link text if change to 'Visit our LinkedIn' would be made
@@ -200,3 +201,20 @@ class ProductsPage:
             if normalized_name == product_id:
                 product.click()
                 return
+
+    def get_product_item(self, product_id):
+        """
+        Retrieves a product item by its ID.
+
+        :param product_id: The unique identifier of the product.
+        :return: A tuple containing the product name and price.
+        :raises ValueError: If the product with the specified ID is not found.
+        """
+        products = self.driver.find_elements(*self.PRODUCT_ITEM)
+
+        for product in products:
+            name = product.find_element(*self.PRODUCT_NAME_ELEMENTS).text.lower().replace(" ", "-")
+            price = product.find_element(*self.PRODUCT_PRICE_ELEMENTS).text.replace("$", "")
+            if name == product_id:
+                return name, price
+        raise ValueError(f"Product with ID '{product_id}' not found on the page.")

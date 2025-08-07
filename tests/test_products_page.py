@@ -3,6 +3,7 @@ from utils.browser_setup import driver
 from pages.products_page import ProductsPage
 from pages.product_details_page import ProductDetails
 from utils.product_data import PRODUCT_IDS
+from utils.product_data import PRODUCT_PRICES
 from utils.config import BASE_URL
 from utils.config import SOCIAL_MEDIA
 from selenium.webdriver.support.ui import WebDriverWait
@@ -144,6 +145,29 @@ def test_cart_badge_increments(var_user_logged):
             f"Expected cart badge to show {expected_count}, after adding {product_index} products to cart, "
             f"but got {products_page.cart_badge_count()}. Failed at product: {product_id} for user: {current_user}."
         )
+
+@pytest.mark.price
+@pytest.mark.parametrize("product_id", PRODUCT_IDS)
+def test_check_price(var_user_logged, product_id):
+    """
+    Tests if the product prices match the expected values.
+
+    :param var_user_logged: A tuple containing the current user and WebDriver instance.
+    :param product_id: The unique identifier of the product to check.
+    """
+    current_user, driver = var_user_logged
+    products_page = ProductsPage(driver)
+
+    name, price = products_page.get_product_item(product_id)
+
+    assert name in PRODUCT_PRICES and PRODUCT_PRICES[name] == price, (
+        f"Expected {product_id} with correct price. "
+        f"Instead {current_user} got incorrect price, or item/price was not found on the page."
+    )
+
+def test_check_product_description():
+    pass
+
 
 @pytest.mark.filter
 def test_sort_za(var_user_logged):
