@@ -10,7 +10,9 @@ class ProductDetails:
         driver (WebDriver): The Selenium WebDriver instance.
     """
     # Locators:
+    PRODUCT_ITEM = (By.CLASS_NAME, "inventory_item_container")
     PRODUCT_DETAILS_NAME = (By.CLASS_NAME, "inventory_details_name")
+    PRODUCT_DETAILS_PRICE = (By.CLASS_NAME, "inventory_details_price")
     BACK_TO_PRODUCTS_BTN = (By.ID, "back-to-products")
     ADD_TO_CART_BTN = (By.ID, "add-to-cart")
     REMOVE_BTN = (By.ID, "remove")
@@ -69,3 +71,20 @@ class ProductDetails:
             self.driver.find_element(*self.REMOVE_BTN).click()
         except NoSuchElementException:
             return False
+
+    def get_product_item(self, product_id):
+        """
+        Retrieves a product item by its ID.
+
+        :param product_id: The unique identifier of the product.
+        :return: A tuple containing the product name and price.
+        :raises ValueError: If the product with the specified ID is not found.
+        """
+        products = self.driver.find_elements(*self.PRODUCT_ITEM)
+
+        for product in products:
+            name = product.find_element(*self.PRODUCT_DETAILS_NAME).text.lower().replace(" ", "-")
+            price = product.find_element(*self.PRODUCT_DETAILS_PRICE).text.replace("$", "")
+            if name == product_id:
+                return name, price
+        raise ValueError(f"Product with ID '{product_id}' not found on the page.")

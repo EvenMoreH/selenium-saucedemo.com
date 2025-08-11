@@ -47,9 +47,9 @@ PAGES:
 
 [-] product_details_page.py
     [x] add to cart from preview
-    [-] remove from cart from preview
-    [-] back to products page from preview
-    [-] check if price match products page
+    [x] remove from cart from preview
+    [x] back to products page from preview
+    [x] check if price match products page
     [-] check if correct picture for a product is visible
 
 FLOWS:

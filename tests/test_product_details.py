@@ -1,5 +1,7 @@
 import pytest
+from utils.config import BASE_URL
 from utils.product_data import PRODUCT_IDS
+from utils.product_data import PRODUCT_PRICES
 from utils.browser_setup import driver
 from pages.products_page import ProductsPage
 from pages.product_details_page import ProductDetails
@@ -36,14 +38,106 @@ def test_add_to_cart(var_user_logged, product_id):
         f"{current_user} was not able to add {product_id} to cart."
     )
 
-def test_remove_from_cart():
-    pass
+@pytest.mark.cart
+@pytest.mark.parametrize("product_id", PRODUCT_IDS)
+def test_remove_from_cart(var_user_logged, product_id):
+    """
+    Test to verify that a product can be removed from the cart correctly from product details page.
+
+    Args:
+        var_user_logged: A tuple containing the current user and WebDriver instance.
+        product_id: The ID of the product to be tested.
+
+    Asserts:
+        - Redirection to the correct product details page URL.
+        - Product added successfully to the cart.
+        - Product removed from the cart correctly.
+    """
+    current_user, driver = var_user_logged
+    products_page = ProductsPage(driver)
+    product_details_page = ProductDetails(driver)
+
+    products_page.add_to_cart(product_id)
+    products_page.open_product_details(product_id)
+    assert "inventory-item" in driver.current_url, (
+        f"Expected redirection to product details page. "
+        f"{current_user.title()} redirected instead to {driver.current_url}."
+    )
+
+    assert product_details_page.is_in_cart(), (
+        f"Expected {product_id} to be in cart, but {current_user} could not add it."
+    )
+
+    product_details_page.remove_from_cart()
+
+    assert not product_details_page.is_in_cart(), (
+        f"Expected 'Add to cart' button to be visible for product {product_id} after removal. "
+        f"{current_user} could not remove the product."
+    )
 
 
-def test_check_item_price():
-    pass
+@pytest.mark.price
+@pytest.mark.parametrize("product_id", PRODUCT_IDS)
+def test_check_item_price(var_user_logged, product_id):
+    """
+    Test to verify the correctness of the item price on the product details page.
 
+    Args:
+        var_user_logged: A tuple containing the current user and WebDriver instance.
+        product_id: The ID of the product to be tested.
+
+    Asserts:
+        - Redirection to the correct product details page URL.
+        - Correct product name and price match with expected values.
+    """
+
+    current_user, driver = var_user_logged
+    products_page = ProductsPage(driver)
+    product_details_page = ProductDetails(driver)
+
+    products_page.open_product_details(product_id)
+    assert "inventory-item" in driver.current_url, (
+        f"Expected redirection to product details page. "
+        f"{current_user.title()} redirected instead to {driver.current_url}."
+    )
+
+    name, price = product_details_page.get_product_item(product_id)
+
+    assert name in PRODUCT_PRICES and PRODUCT_PRICES[name] == price, (
+        f"Expected {product_id} with correct price. "
+        f"Instead {current_user} got incorrect price, or item/price was not found on the page."
+    )
+
+
+@pytest.mark.cart
+@pytest.mark.parametrize("product_id", PRODUCT_IDS)
+def test_return_to_products_page(var_user_logged, product_id):
+    """
+    Test to verify that the user returns correctly to the products page after viewing a product.
+
+    Args:
+        var_user_logged: A tuple containing the current user and WebDriver instance.
+        product_id: The ID of the product to be tested.
+
+    Asserts:
+        - Redirection to the correct product details page URL.
+        - Correct redirection back to the products page after clicking 'Back to Products'.
+    """
+    current_user, driver = var_user_logged
+    products_page = ProductsPage(driver)
+    product_details_page = ProductDetails(driver)
+
+    products_page.open_product_details(product_id)
+    assert "inventory-item" in driver.current_url, (
+        f"Expected redirection to product details page. "
+        f"{current_user.title()} redirected instead to {driver.current_url}."
+    )
+
+    product_details_page.click_back_to_products()
+    assert driver.current_url == f"{BASE_URL}inventory.html", (
+        f"Expected {current_user} to be redirected back to products page. "
+        f"{current_user.title()} instead redirected to {driver.current_url}."
+    )
 
 def test_check_product_img():
     pass
-
