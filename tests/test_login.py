@@ -7,12 +7,13 @@ from utils.config import TestUsers
 @pytest.mark.login_page
 def test_valid_login(driver):
     """
-    Test logging in with valid credentials.
+    Verify logging in with valid credentials.
 
-    This test verifies that a user can successfully log in using standard credentials.
-    After logging in, it asserts that the current URL is the inventory page.
+    Args:
+        driver (WebDriver): Selenium WebDriver instance used for testing.
 
-    :param driver: The Selenium WebDriver instance used for testing.
+    Assertions:
+        - Current URL is the inventory page after successful login.
     """
     login_page = LoginPage(driver)
     login_page.login(**TestUsers.standard)
@@ -21,11 +22,13 @@ def test_valid_login(driver):
 @pytest.mark.login_page
 def test_invalid_login(driver):
     """
-    Test logging in with invalid credentials.
+    Verify logging in with invalid credentials displays appropriate error message.
 
-    This test verifies that an appropriate error message is displayed when attempting to log in with incorrect credentials.
+    Args:
+        driver (WebDriver): Selenium WebDriver instance used for testing.
 
-    :param driver: The Selenium WebDriver instance used for testing.
+    Assertions:
+        - Appropriate error message is displayed when attempting to log in with incorrect credentials.
     """
     login_page = LoginPage(driver)
     login_page.login(**TestUsers.incorrect)
@@ -34,11 +37,13 @@ def test_invalid_login(driver):
 @pytest.mark.login_page
 def test_locked_out_login(driver):
     """
-    Test logging in with locked out credentials.
+    Verify logging in with locked out credentials displays appropriate error message.
 
-    This test verifies that an appropriate error message is displayed when attempting to log in with a locked-out account.
+    Args:
+        driver (WebDriver): Selenium WebDriver instance used for testing.
 
-    :param driver: The Selenium WebDriver instance used for testing.
+    Assertions:
+        - Appropriate error message is displayed when attempting to log in with a locked-out account.
     """
     login_page = LoginPage(driver)
     login_page.login(**TestUsers.locked)
@@ -54,13 +59,16 @@ def test_locked_out_login(driver):
 )
 def test_empty_fields_login(driver, username, password, should_succeed):
     """
-    Tests login functionality with empty username and/or password fields.
+    Verify login functionality with empty username and/or password fields.
 
     Args:
-        driver (WebDriver): The Selenium WebDriver instance.
-        username (str): The username to be tested.
-        password (str): The password to be tested.
+        driver (WebDriver): Selenium WebDriver instance.
+        username (str): Username to be tested.
+        password (str): Password to be tested.
         should_succeed (bool): Indicates whether the login should succeed.
+
+    Assertions:
+        - Login success/failure matches expected outcome based on field completeness.
     """
     login_page = LoginPage(driver)
     login_page.login(username, password)
@@ -87,13 +95,17 @@ def test_empty_fields_login(driver, username, password, should_succeed):
 )
 def test_whitespace_login(driver, username, password, should_succeed):
     """
-    Tests login functionality with whitespace around the username or password.
+    Verify login functionality with whitespace around username or password.
 
     Args:
-        driver (WebDriver): The Selenium WebDriver instance.
-        username (str): The username to be tested.
-        password (str): The password to be tested.
+        driver (WebDriver): Selenium WebDriver instance.
+        username (str): Username to be tested (with whitespace).
+        password (str): Password to be tested (with whitespace).
         should_succeed (bool): Indicates whether the login should succeed.
+
+    Assertions:
+        - Login success/failure matches expected outcome.
+        - Appropriate error message is displayed for failed logins.
     """
     login_page = LoginPage(driver)
     login_page.login(username, password)
@@ -119,15 +131,23 @@ def test_whitespace_login(driver, username, password, should_succeed):
 )
 def test_case_sensitive_login(driver, username, password, should_succeed):
     """
-    Test login functionality with different username casing to validate case sensitivity handling.
+    Verify login functionality with different username casing to validate case sensitivity.
 
     This test verifies how the application handles usernames with altered casing.
-    It assumes the application's authentication schema treats usernames in a case-insensitive manner for lowercase inputs,
-    but is expected to fail for other casing variations (uppercase, titlecase, etc.).
+    It assumes the application's authentication schema treats usernames in a case-insensitive 
+    manner for lowercase inputs, but is expected to fail for other casing variations.
 
-    Passwords are NOT mutated in this test because passwords are required to be fully case-sensitive
-    by security standards. Altering password casing would always result in a failure,
-    which is not valuable for this specific case sensitivity validation of usernames.
+    Passwords are NOT mutated in this test because passwords are required to be fully 
+    case-sensitive by security standards.
+
+    Args:
+        driver (WebDriver): Selenium WebDriver instance.
+        username (str): Username to be tested with altered casing.
+        password (str): Password to be tested (unchanged).
+        should_succeed (bool): Indicates whether the login should succeed.
+
+    Assertions:
+        - Login success/failure matches expected outcome based on case sensitivity rules.
     """
     login_page = LoginPage(driver)
     login_page.login(username, password)

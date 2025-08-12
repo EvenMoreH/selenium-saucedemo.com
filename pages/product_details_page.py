@@ -26,6 +26,15 @@ class ProductDetails:
         """
         self.driver = driver
 
+    def is_on_product_details_page(self):
+        """
+        Checks if the current page URL indicates that the user is on a product details page.
+
+        Returns:
+            bool: True if "inventory-item" is present in the current URL, False otherwise.
+        """
+        return "inventory-item" in self.driver.current_url
+
     def capture_product_name(self):
         """
         Captures and returns normalized product name from the details page.

@@ -13,18 +13,13 @@ from selenium.common.exceptions import TimeoutException
 @pytest.mark.smoke
 def test_open_cart_default(default_user_logged):
     """
-    Test to verify that the cart can be opened for a default user.
+    Verify that the cart can be opened for a default user.
 
-    Steps:
-    1. Open the products page as a default user.
-    2. Click on the cart icon.
-    3. Assert that the current URL is the cart page URL.
+    Args:
+        default_user_logged (WebDriver): WebDriver instance with a default user logged in.
 
-    Parameters:
-        default_user_logged (WebDriver): The WebDriver instance with a default user logged in.
-
-    Raises:
-        AssertionError: If the current URL does not match the expected cart URL.
+    Assertions:
+        - Current URL matches the expected cart URL.
     """
     products_page = ProductsPage(default_user_logged)
     products_page.open_cart()
@@ -33,18 +28,13 @@ def test_open_cart_default(default_user_logged):
 @pytest.mark.cart
 def test_open_cart_var(var_user_logged):
     """
-    Test to verify that the cart can be opened for a variable user (standard and problem).
+    Verify that the cart can be opened for variable users (standard and problem).
 
-    Steps:
-    1. Open the products page as a variable user.
-    2. Click on the cart icon.
-    3. Assert that the current URL is the cart page URL.
+    Args:
+        var_user_logged (tuple): (str, WebDriver) - Username and WebDriver instance with variable user logged in.
 
-    Parameters:
-        var_user_logged (tuple): A tuple containing the username and WebDriver instance with a variable user logged in.
-
-    Raises:
-        AssertionError: If the current URL does not match the expected cart URL.
+    Assertions:
+        - Current URL matches the expected cart URL.
     """
     current_user, driver = var_user_logged
     products_page = ProductsPage(driver)
@@ -57,19 +47,14 @@ def test_open_cart_var(var_user_logged):
 @pytest.mark.parametrize("product_id", PRODUCT_IDS)
 def test_add_to_cart(var_user_logged, product_id):
     """
-    Test to verify that a product can be added to the cart for a variable user (standard and problem).
+    Verify that a product can be added to the cart for variable users.
 
-    Steps:
-    1. Open the products page as a variable user.
-    2. Add a specified product to the cart.
-    3. Assert that the product is in the cart.
+    Args:
+        var_user_logged (tuple): (str, WebDriver) - Username and WebDriver instance with variable user logged in.
+        product_id (str): ID of the product to be added to the cart.
 
-    Parameters:
-        var_user_logged (tuple): A tuple containing the username and WebDriver instance with a variable user logged in.
-        product_id (str): The ID of the product to be added to the cart.
-
-    Raises:
-        AssertionError: If the product is not found in the cart after adding.
+    Assertions:
+        - Product is successfully added to the cart.
     """
     # unpacking var_user_logged return value in correct order
     current_user, driver = var_user_logged
@@ -81,20 +66,14 @@ def test_add_to_cart(var_user_logged, product_id):
 @pytest.mark.parametrize("product_id", PRODUCT_IDS)
 def test_remove_from_cart(var_user_logged, product_id):
     """
-    Test to verify that a product can be removed from the cart for a variable user.
+    Verify that a product can be removed from the cart for variable users.
 
-    Steps:
-    1. Open the products page as a variable user.
-    2. Add a specified product to the cart.
-    3. Remove the product from the cart.
-    4. Assert that the 'Add to cart' button is visible for the removed product.
+    Args:
+        var_user_logged (tuple): (str, WebDriver) - Username and WebDriver instance with variable user logged in.
+        product_id (str): ID of the product to be added and removed from the cart.
 
-    Parameters:
-        var_user_logged (tuple): A tuple containing the username and WebDriver instance with a variable user logged in.
-        product_id (str): The ID of the product to be added and removed from the cart.
-
-    Raises:
-        AssertionError: If the 'Add to cart' button is not visible for the removed product.
+    Assertions:
+        - 'Add to cart' button is visible for the removed product.
     """
     current_user, driver = var_user_logged
     products_page = ProductsPage(driver)
@@ -108,19 +87,13 @@ def test_remove_from_cart(var_user_logged, product_id):
 @pytest.mark.cart
 def test_cart_badge_increments(var_user_logged):
     """
-    Test to verify that the cart badge count increments correctly when adding multiple products.
+    Verify that the cart badge count increments correctly when adding multiple products.
 
-    Steps:
-    1. Open the products page as a variable user.
-    2. Note the initial cart badge count.
-    3. Add each product in PRODUCT_IDS to the cart one by one.
-    4. Assert that the cart badge count matches the expected count after adding each product.
+    Args:
+        var_user_logged (tuple): (str, WebDriver) - Username and WebDriver instance with variable user logged in.
 
-    Parameters:
-        var_user_logged (tuple): A tuple containing the username and WebDriver instance with a variable user logged in.
-
-    Raises:
-        AssertionError: If the cart badge count does not match the expected count at any point.
+    Assertions:
+        - Cart badge count matches the expected count after adding each product.
     """
     current_user, driver = var_user_logged
     products_page = ProductsPage(driver)
@@ -150,10 +123,14 @@ def test_cart_badge_increments(var_user_logged):
 @pytest.mark.parametrize("product_id", PRODUCT_IDS)
 def test_check_price(var_user_logged, product_id):
     """
-    Tests if the product prices match the expected values.
+    Verify that product prices match the expected values.
 
-    :param var_user_logged: A tuple containing the current user and WebDriver instance.
-    :param product_id: The unique identifier of the product to check.
+    Args:
+        var_user_logged (tuple): (str, WebDriver) - Username and WebDriver instance with variable user logged in.
+        product_id (str): Unique identifier of the product to check.
+
+    Assertions:
+        - Product name exists in PRODUCT_PRICES and price matches expected value.
     """
     current_user, driver = var_user_logged
     products_page = ProductsPage(driver)
@@ -172,18 +149,13 @@ def test_check_product_description():
 @pytest.mark.filter
 def test_sort_za(var_user_logged):
     """
-    Test to verify that products can be sorted in descending order (Z-A).
+    Verify that products can be sorted in descending order (Z-A).
 
-    Steps:
-    1. Open the products page as a variable user.
-    2. Sort the products in Z-A order.
-    3. Assert that the current list of product names matches the expected sorted list.
+    Args:
+        var_user_logged (tuple): (str, WebDriver) - Username and WebDriver instance with variable user logged in.
 
-    Parameters:
-        var_user_logged (tuple): A tuple containing the username and WebDriver instance with a variable user logged in.
-
-    Raises:
-        AssertionError: If the current product order does not match the expected Z-A sorted order.
+    Assertions:
+        - Current product order matches the expected Z-A sorted order.
     """
     current_user, driver = var_user_logged
     products_page = ProductsPage(driver)
@@ -200,20 +172,14 @@ def test_sort_za(var_user_logged):
 @pytest.mark.filter
 def test_sort_az(var_user_logged):
     """
-    Test to verify that products can be sorted in ascending order (A-Z).
+    Verify that products can be sorted in ascending order (A-Z).
 
-    Steps:
-    1. Open the products page as a variable user.
-    2. Sort the products in Z-A order first.
-    3. Assert that the current list of product names matches the expected Z-A sorted list.
-    4. Sort the products in A-Z order.
-    5. Assert that the current list of product names matches the expected A-Z sorted list.
+    Args:
+        var_user_logged (tuple): (str, WebDriver) - Username and WebDriver instance with variable user logged in.
 
-    Parameters:
-        var_user_logged (tuple): A tuple containing the username and WebDriver instance with a variable user logged in.
-
-    Raises:
-        AssertionError: If the current product order does not match the expected Z-A or A-Z sorted order at any step.
+    Assertions:
+        - Initial Z-A sort works correctly.
+        - Final A-Z sort matches the expected order.
     """
     current_user, driver = var_user_logged
     products_page = ProductsPage(driver)
@@ -240,18 +206,13 @@ def test_sort_az(var_user_logged):
 @pytest.mark.filter
 def test_sort_high_low(var_user_logged):
     """
-    Test to verify that products can be sorted by price in descending order (high to low).
+    Verify that products can be sorted by price in descending order (high to low).
 
-    Steps:
-    1. Open the products page as a variable user.
-    2. Sort the products by price in high to low order.
-    3. Assert that the current list of product prices matches the expected sorted list.
+    Args:
+        var_user_logged (tuple): (str, WebDriver) - Username and WebDriver instance with variable user logged in.
 
-    Parameters:
-        var_user_logged (tuple): A tuple containing the username and WebDriver instance with a variable user logged in.
-
-    Raises:
-        AssertionError: If the current product price order does not match the expected high to low sorted order.
+    Assertions:
+        - Current product price order matches the expected high to low sorted order.
     """
     current_user, driver = var_user_logged
     products_page = ProductsPage(driver)
@@ -270,18 +231,13 @@ def test_sort_high_low(var_user_logged):
 @pytest.mark.filter
 def test_sort_low_high(var_user_logged):
     """
-    Test to verify that products can be sorted by price in ascending order (low to high).
+    Verify that products can be sorted by price in ascending order (low to high).
 
-    Steps:
-    1. Open the products page as a variable user.
-    2. Sort the products by price in low to high order.
-    3. Assert that the current list of product prices matches the expected sorted list.
+    Args:
+        var_user_logged (tuple): (str, WebDriver) - Username and WebDriver instance with variable user logged in.
 
-    Parameters:
-        var_user_logged (tuple): A tuple containing the username and WebDriver instance with a variable user logged in.
-
-    Raises:
-        AssertionError: If the current product price order does not match the expected low to high sorted order.
+    Assertions:
+        - Current product price order matches the expected low to high sorted order.
     """
     current_user, driver = var_user_logged
     products_page = ProductsPage(driver)
@@ -300,18 +256,14 @@ def test_sort_low_high(var_user_logged):
 @pytest.mark.social
 def test_social_media_link(var_user_logged):
     """
-    Test to verify that the LinkedIn social media link can be accessed.
+    Verify that the LinkedIn social media link can be accessed.
 
-    Steps:
-    1. Open the products page as a variable user.
-    2. Click on the LinkedIn link.
-    3. Assert that a new tab is opened and the current URL matches the LinkedIn URL.
+    Args:
+        var_user_logged (tuple): (str, WebDriver) - Username and WebDriver instance with variable user logged in.
 
-    Parameters:
-        var_user_logged (tuple): A tuple containing the username and WebDriver instance with a variable user logged in.
-
-    Raises:
-        AssertionError: If the current URL does not match the expected LinkedIn URL after clicking the link.
+    Assertions:
+        - New tab is opened after clicking LinkedIn link.
+        - Current URL matches the expected LinkedIn URL.
     """
     current_user, driver = var_user_logged
     products_page = ProductsPage(driver)
@@ -331,11 +283,14 @@ def test_social_media_link(var_user_logged):
 @pytest.mark.parametrize("product_id", PRODUCT_IDS)
 def test_open_product_details(var_user_logged, product_id):
     """
-    Test opening a product details page and verifying the displayed product name.
+    Verify opening a product details page and displayed product name.
 
     Args:
-        var_user_logged (tuple): A tuple containing the current user and the WebDriver instance.
-        product_id (str): The ID of the product to be opened.
+        var_user_logged (tuple): (str, WebDriver) - Username and WebDriver instance with variable user logged in.
+        product_id (str): ID of the product to be opened.
+
+    Assertions:
+        - Product details page displays the correct product name.
     """
     current_user, driver = var_user_logged
     products_page = ProductsPage(driver)
