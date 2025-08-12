@@ -95,7 +95,6 @@ def test_check_item_price(var_user_logged, product_id):
         - Redirection to the correct product details page URL.
         - Product name and price match with expected values.
     """
-
     current_user, driver = var_user_logged
     products_page = ProductsPage(driver)
     product_details_page = ProductDetails(driver)
