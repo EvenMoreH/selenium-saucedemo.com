@@ -85,12 +85,18 @@ def test_empty_fields_login(driver, username, password, should_succeed):
 @pytest.mark.login_page
 @pytest.mark.parametrize(
     "username, password, should_succeed", [
-        (TestUsers.standard["username"], " " + TestUsers.standard["password"], False),         # leading space - password
-        (TestUsers.standard["username"], TestUsers.standard["password"] + " ", False),         # trailing space - password
-        (TestUsers.standard["username"], " " + TestUsers.standard["password"] + " ", False),   # leading & trailing space - password
-        (" " + TestUsers.standard["username"], TestUsers.standard["password"], False),         # leading space - username
-        (TestUsers.standard["username"] + " ", TestUsers.standard["password"], False),         # trailing space - username
-        (" " + TestUsers.standard["username"] + " ", TestUsers.standard["password"], False),   # leading & trailing space - username
+        # leading space - password
+        (TestUsers.standard["username"], " " + TestUsers.standard["password"], False),
+        # trailing space - password
+        (TestUsers.standard["username"], TestUsers.standard["password"] + " ", False),
+        # leading & trailing space - password
+        (TestUsers.standard["username"], " " + TestUsers.standard["password"] + " ", False),
+        # leading space - username
+        (" " + TestUsers.standard["username"], TestUsers.standard["password"], False),
+        # trailing space - username
+        (TestUsers.standard["username"] + " ", TestUsers.standard["password"], False),
+        # leading & trailing space - username
+        (" " + TestUsers.standard["username"] + " ", TestUsers.standard["password"], False),
     ]
 )
 def test_whitespace_login(driver, username, password, should_succeed):
@@ -118,7 +124,8 @@ def test_whitespace_login(driver, username, password, should_succeed):
         assert not driver.current_url == f"{BASE_URL}inventory.html", (
             f"Expected login failure but succeeded for {username}"
         )
-        assert login_page.get_login_error_message() == "Epic sadface: Username and password do not match any user in this service"
+        assert login_page.get_login_error_message() == "Epic sadface: \
+            Username and password do not match any user in this service"
 
 @pytest.mark.login_page
 @pytest.mark.parametrize(
@@ -134,10 +141,10 @@ def test_case_sensitive_login(driver, username, password, should_succeed):
     Verify login functionality with different username casing to validate case sensitivity.
 
     This test verifies how the application handles usernames with altered casing.
-    It assumes the application's authentication schema treats usernames in a case-insensitive 
+    It assumes the application's authentication schema treats usernames in a case-insensitive
     manner for lowercase inputs, but is expected to fail for other casing variations.
 
-    Passwords are NOT mutated in this test because passwords are required to be fully 
+    Passwords are NOT mutated in this test because passwords are required to be fully
     case-sensitive by security standards.
 
     Args:

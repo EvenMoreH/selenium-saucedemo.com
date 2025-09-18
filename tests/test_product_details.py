@@ -66,7 +66,7 @@ def test_remove_from_cart(var_user_logged, product_id):
     products_page.open_product_details(product_id)
     assert product_details_page.is_on_product_details_page(), (
         f"Expected redirection to product details page. "
-        f"{current_user.title()} redirected instead to {driver.current_url}."
+        f"{current_user} redirected instead to {driver.current_url}."
     )
 
     assert product_details_page.is_in_cart(), (
@@ -102,7 +102,7 @@ def test_check_item_price(var_user_logged, product_id):
     products_page.open_product_details(product_id)
     assert product_details_page.is_on_product_details_page(), (
         f"Expected redirection to product details page. "
-        f"{current_user.title()} redirected instead to {driver.current_url}."
+        f"{current_user} redirected instead to {driver.current_url}."
     )
 
     name, price = product_details_page.get_product_item(product_id)
@@ -113,7 +113,7 @@ def test_check_item_price(var_user_logged, product_id):
     )
 
 
-@pytest.mark.cart3
+@pytest.mark.cart
 @pytest.mark.parametrize("product_id", PRODUCT_IDS)
 def test_return_to_products_page(var_user_logged, product_id):
     """
