@@ -12,9 +12,10 @@ def pytest_configure(config):
     Pytest built-in hook that runs once at the beginning of the test session.
     Used here to set up global logging configuration.
     """
+    # pytest-xdist-logger will handle file access coordination
     logging.basicConfig(
         filename='test_results.log',
-        filemode='w',
+        filemode='a',  # Important: use append mode
         level=logging.INFO,
         format='%(asctime)s - %(levelname)s - %(message)s'
     )
