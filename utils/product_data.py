@@ -7,6 +7,16 @@ PRODUCT_IDS = [
     "test.allthethings()-t-shirt-(red)"
 ]
 
+# Mapping of product IDs to their exact display names on the website
+PRODUCT_NAMES = {
+    "sauce-labs-backpack": "Sauce Labs Backpack",
+    "sauce-labs-bike-light": "Sauce Labs Bike Light",
+    "sauce-labs-bolt-t-shirt": "Sauce Labs Bolt T-Shirt",
+    "sauce-labs-fleece-jacket": "Sauce Labs Fleece Jacket",
+    "sauce-labs-onesie": "Sauce Labs Onesie",
+    "test.allthethings()-t-shirt-(red)": "Test.allTheThings() T-Shirt (Red)"
+}
+
 PRODUCT_PRICES = {
     "sauce-labs-backpack" : "29.99",
     "sauce-labs-bike-light" : "9.99",

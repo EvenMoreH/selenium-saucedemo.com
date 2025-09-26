@@ -3,6 +3,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.remote.webdriver import WebDriver   # import to have intellisense inside methods
 from selenium.common.exceptions import NoSuchElementException
 
+
 class ProductsPage:
     """
     Represents the products page of the website.
@@ -180,6 +181,26 @@ class ProductsPage:
 
         print(current_products_order)
         return current_products_order
+
+    def capture_product_img(self, product_id: str):
+        """
+        Captures the product image element and src attribute for a specific product using XPath.
+
+        :param product_id: Unique identifier for the product
+        :return: Tuple containing WebElement representing the product image and its src attribute
+        """
+        from utils.product_data import PRODUCT_NAMES
+
+        # Get the exact display name for this product ID
+        expected_alt_text = PRODUCT_NAMES.get(product_id)
+
+        try:
+            # XPath to find the img element with matching alt text
+            xpath_direct = f"//img[@alt='{expected_alt_text}']"
+            img = self.driver.find_element(By.XPATH, xpath_direct)
+            return img, img.get_attribute("src")
+        except NoSuchElementException:
+            raise NoSuchElementException(f"No product image with alt text '{expected_alt_text}' found")
 
     def visit_linkedin(self):
         """

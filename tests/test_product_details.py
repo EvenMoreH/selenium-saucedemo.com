@@ -144,4 +144,7 @@ def test_return_to_products_page(var_user_logged, product_id):
     )
 
 def test_check_product_img():
+    # for demo purposes I will not be using PIL & hashlib nor visual comparison libraries to validate the img
+    
+
     pass
