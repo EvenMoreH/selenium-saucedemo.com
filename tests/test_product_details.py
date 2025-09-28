@@ -143,8 +143,39 @@ def test_return_to_products_page(var_user_logged, product_id):
         f"{current_user} instead redirected to {driver.current_url}."
     )
 
-def test_check_product_img():
-    # for demo purposes I will not be using PIL & hashlib nor visual comparison libraries to validate the img
-    
 
-    pass
+@pytest.mark.img
+@pytest.mark.parametrize("product_id", PRODUCT_IDS)
+def test_check_product_img(var_user_logged, product_id):
+    # for demo purposes I will not be using PIL & hashlib nor visual comparison libraries to validate the img
+    """
+    Verify that product images are correctly displayed on the products page.
+
+    Args:
+        var_user_logged (tuple): (str, WebDriver) - Username and WebDriver instance with variable user
+            logged in.
+        product_id (str): ID of the product whose image should be checked.
+
+    Assertions:
+        - Product image is displayed in the UI.
+        - Product image has a non-empty source attribute.
+    """
+    current_user, driver = var_user_logged
+    products_page = ProductsPage(driver)
+    product_details_page = ProductDetails(driver)
+
+    products_page.open_product_details(product_id)
+    assert product_details_page.is_on_product_details_page(), (
+        f"Expected redirection to product details page. "
+        f"{current_user} redirected instead to {driver.current_url}."
+    )
+
+    img, img_src = product_details_page.capture_product_img(product_id)
+
+    assert img.is_displayed(), (
+        f"Expected product img to be displayed. {current_user} does not see the img."
+    )
+
+    assert img_src is not None and img_src != "", (
+        f"Expected img source to not be empty. Img source empty for {current_user}."
+    )

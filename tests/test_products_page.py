@@ -327,7 +327,7 @@ def test_check_product_img(var_user_logged, product_id):
     img, img_src = products_page.capture_product_img(product_id)
 
     assert img.is_displayed(), (
-        f"Expected product img to be displayed. {current_user} does not see the img."
+        f"Expected {product_id} product img to be displayed. {current_user} does not see the img."
     )
 
     assert img_src is not None and img_src != "", (

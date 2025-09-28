@@ -1,4 +1,5 @@
 import pytest
+from selenium.webdriver.remote.webdriver import WebDriver
 from utils.browser_setup import driver
 from utils.config import BASE_URL
 from pages.login_page import LoginPage
@@ -82,6 +83,7 @@ def test_empty_fields_login(driver, username, password, should_succeed):
             "Expected login failure but succeeded."
         )
 
+
 @pytest.mark.login_page
 @pytest.mark.parametrize(
     "username, password, should_succeed", [
@@ -99,7 +101,7 @@ def test_empty_fields_login(driver, username, password, should_succeed):
         (" " + TestUsers.standard["username"] + " ", TestUsers.standard["password"], False),
     ]
 )
-def test_whitespace_login(driver, username, password, should_succeed):
+def test_whitespace_login(driver: WebDriver, username: str, password: str, should_succeed: bool) -> None:
     """
     Verify login functionality with whitespace around username or password.
 
@@ -115,6 +117,7 @@ def test_whitespace_login(driver, username, password, should_succeed):
     """
     login_page = LoginPage(driver)
     login_page.login(username, password)
+    expected_error: str = "Epic sadface: Username and password do not match any user in this service"
 
     if should_succeed:
         assert driver.current_url == f"{BASE_URL}inventory.html", (
@@ -124,8 +127,7 @@ def test_whitespace_login(driver, username, password, should_succeed):
         assert not driver.current_url == f"{BASE_URL}inventory.html", (
             f"Expected login failure but succeeded for {username}"
         )
-        assert login_page.get_login_error_message() == "Epic sadface: \
-            Username and password do not match any user in this service"
+        assert login_page.get_login_error_message() == expected_error
 
 @pytest.mark.login_page
 @pytest.mark.parametrize(
